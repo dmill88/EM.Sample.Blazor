@@ -1,0 +1,26 @@
+﻿@page "/"
+@inherits IndexBase
+@inject NavigationManager navManager
+
+<h1>Blogs</h1>
+
+@if (BlogListItems == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <DxDataGrid Data="@BlogListItems" ShowGroupPanel="false" ShowFilterRow="false">
+        <DxDataGridColumn Field="@nameof(BlogListItemDto.Id)"></DxDataGridColumn>
+        <DxDataGridColumn Field="@nameof(BlogListItemDto.DisplayName)" Caption="Display Name"></DxDataGridColumn>
+        <DxDataGridColumn Field="@nameof(BlogListItemDto.Name)" Caption="Lookup Name"></DxDataGridColumn>
+        <DxDataGridColumn>
+            <DisplayTemplate>
+                @{
+                    BlogListItemDto item = context as BlogListItemDto;
+                    <DxButton RenderStyle="ButtonRenderStyle.Primary" Text="View" Enabled="true" IconCssClass="oi oi-document p-2" Click="@(e => { navManager.NavigateTo($"blogView/{item.Id}"); })" />
+                }
+            </DisplayTemplate>
+        </DxDataGridColumn>
+    </DxDataGrid>
+}

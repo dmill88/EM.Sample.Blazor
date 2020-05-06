@@ -1,0 +1,111 @@
+﻿@page "/blogPostEdit/{blogId:int}/{id:int}"
+@page "/blogPostAdd/{blogId:int}"
+@inherits BlogPostEditBase
+
+<h3>@PageTitle</h3>
+
+@if (!IsDataLoaded)
+{
+    <p><em>Loading blog post....</em></p>
+}
+else
+{
+<EditForm Model="@BlogPost" OnValidSubmit="@HandleValidSubmit" OnInvalidSubmit="@HandleInValidSubmit" Context="EditFormContext">
+    <DataAnnotationsValidator />
+    <DxFormLayout>
+
+        <DxFormLayoutItem Caption="Author:" ColSpanMd="4">
+            <Template>
+                <DxComboBox NullText="Select author ..." ClearButtonDisplayMode="DataEditorClearButtonDisplayMode.Auto"
+                            Data="@Authors" TextFieldName="FullName" @bind-SelectedItem="@SelectedAuthor" />
+            </Template>
+        </DxFormLayoutItem>
+        <DxFormLayoutItem Caption="Blog Status:" ColSpanMd="4">
+            <Template>
+                <DxComboBox NullText="Select blog status ..." ClearButtonDisplayMode="DataEditorClearButtonDisplayMode.Auto"
+                            Data="@BlogPostStatues" TextFieldName="Label" @bind-SelectedItem="@SelectedBlogPostStatus" />
+            </Template>
+        </DxFormLayoutItem>
+        <DxFormLayoutItem Caption="Comment Status:" ColSpanMd="4">
+            <Template>
+                <DxComboBox NullText="Select comment status ..." ClearButtonDisplayMode="DataEditorClearButtonDisplayMode.Auto"
+                            Data="@CommentStatues" TextFieldName="Label" @bind-SelectedItem="@SelectedCommentStatus" />
+            </Template>
+        </DxFormLayoutItem>
+
+        <DxFormLayoutItem Caption="Title:" ColSpanMd="6">
+            <Template>
+                <DxTextBox NullText="Name without spaces" @bind-Text="@BlogPost.Title" />
+            </Template>
+        </DxFormLayoutItem>
+        <DxFormLayoutItem Caption="Tags:" ColSpanMd="6">
+            <Template>
+                <DxTagBox Data="@AvailableTags" @bind-SelectedItems="@SelectedTags">
+                </DxTagBox>
+            </Template>
+        </DxFormLayoutItem>
+
+        <DxFormLayoutItem Caption="Excerpt:" ColSpanMd="12">
+            <Template>
+                <InputTextArea @bind-Value="@BlogPost.Excerpt" class="form-control" />
+            </Template>
+        </DxFormLayoutItem>
+    </DxFormLayout>
+
+    <div class="mb-2">
+        <label>Post Content</label>
+        <BlazoredTextEditor @ref="@QuillHtml">
+            <ToolbarContent>
+                <select class="ql-header">
+                    <option selected=""></option>
+                    <option value="1"></option>
+                    <option value="2"></option>
+                    <option value="3"></option>
+                    <option value="4"></option>
+                    <option value="5"></option>
+                </select>
+                <span class="ql-formats">
+                    <button class="ql-bold"></button>
+                    <button class="ql-italic"></button>
+                    <button class="ql-underline"></button>
+                    <button class="ql-strike"></button>
+                </span>
+                <span class="ql-formats">
+                    <select class="ql-color"></select>
+                    <select class="ql-background"></select>
+                </span>
+                <span class="ql-formats">
+                    <button class="ql-list" value="ordered"></button>
+                    <button class="ql-list" value="bullet"></button>
+                </span>
+                <span class="ql-formats">
+                    <button class="ql-link"></button>
+                </span>
+            </ToolbarContent>
+            <EditorContent>
+                @((MarkupString)BlogPost.PostContent)
+            </EditorContent>
+        </BlazoredTextEditor>
+    </div>
+
+    <ValidationSummary />
+
+    <DxButton SubmitFormOnClick="true" Text="Save" RenderStyle="@ButtonRenderStyle.Primary" />
+
+</EditForm>
+
+    <DxPopup @bind-Visible="@ShowSaveResult" HeaderText="Successfully Saved">
+        <Content>
+            <span class="text-success">
+                Successfully saved post.
+            </span>
+        </Content>
+        <FooterTemplate>
+            <button class="btn btn-primary" @onclick="@(() => ShowSaveResult = false)">OK</button>
+        </FooterTemplate>
+    </DxPopup>
+
+    <div class="mt-3">
+        <NavLink href="@($"/blogEdit/{BlogId}")"><span class="oi oi-arrow-thick-left"></span> Back to @BlogPost.BlogDisplayName</NavLink>
+    </div>
+}

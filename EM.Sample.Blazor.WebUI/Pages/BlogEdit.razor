@@ -1,0 +1,113 @@
+﻿@page "/blogEdit/{id:int}"
+@inherits BlogEditBase
+@inject NavigationManager navManager
+
+<h3>@PageTitle</h3>
+
+@if (!IsDataLoaded)
+{
+    <p><em>Loading blog....</em></p>
+}
+else
+{
+    <EditForm Model="@Blog" OnValidSubmit="@HandleValidSubmit" OnInvalidSubmit="@HandleInValidSubmit" Context="EditFormContext">
+        <DataAnnotationsValidator />
+        <DxFormLayout>
+            <DxFormLayoutItem Caption="Author:" ColSpanMd="4">
+                <Template>
+                    <DxComboBox NullText="Select author ..." ClearButtonDisplayMode="DataEditorClearButtonDisplayMode.Auto"
+                                Data="@Authors" TextFieldName="FullName" @bind-SelectedItem="@SelectedAuthor" />
+                </Template>
+            </DxFormLayoutItem>
+
+            <DxFormLayoutItem Caption="Status:" ColSpanMd="4">
+                <Template>
+                    <DxComboBox NullText="Select status ..." ClearButtonDisplayMode="DataEditorClearButtonDisplayMode.Auto"
+                                Data="@BlogStatues" TextFieldName="Label" @bind-SelectedItem="@SelectedBlogStatus" />
+                </Template>
+            </DxFormLayoutItem>
+
+            <DxFormLayoutItem Caption="Display Order:" ColSpanMd="4">
+                <Template>
+                    <DxSpinEdit @bind-Value="@Blog.DisplayOrder"></DxSpinEdit>
+                </Template>
+            </DxFormLayoutItem>
+
+            <DxFormLayoutItem Caption="Display Name:" ColSpanMd="6">
+                <Template>
+                    <DxTextBox NullText="Display Name" @bind-Text="@Blog.DisplayName" />
+                </Template>
+            </DxFormLayoutItem>
+            <DxFormLayoutItem Caption="Name (No Spaces):" ColSpanMd="6">
+                <Template>
+                    <DxTextBox NullText="Name without spaces" @bind-Text="@Blog.Name" />
+                </Template>
+            </DxFormLayoutItem>
+
+            <DxFormLayoutItem Caption="Description:" ColSpanMd="6">
+                <Template>
+                    <InputTextArea @bind-Value="Blog.Description" class="form-control" />
+                </Template>
+            </DxFormLayoutItem>
+
+            <DxFormLayoutItem Caption="Tags:" ColSpanMd="6">
+                <Template>
+                    <DxTagBox Data="@AvailableTags" @bind-SelectedItems="@SelectedTags">
+                    </DxTagBox>
+                </Template>
+            </DxFormLayoutItem>
+
+            <DxFormLayoutItem ColSpanMd="12">
+                <Template>
+                    <ValidationSummary />
+                </Template>
+            </DxFormLayoutItem>
+            <DxFormLayoutItem ColSpanMd="12">
+                <Template>
+                    <DxButton SubmitFormOnClick="true" Text="Update Blog" RenderStyle="@ButtonRenderStyle.Primary" />
+                </Template>
+            </DxFormLayoutItem>
+
+        </DxFormLayout>
+    </EditForm>
+
+    <DxPopup @bind-Visible="@ShowSaveResult" HeaderText="Successfully Saved">
+        <Content>
+            <span class="text-success">
+                Successfully saved blog.
+            </span>
+        </Content>
+        <FooterTemplate>
+            <button class="btn btn-primary" @onclick="@(() => ShowSaveResult = false)">OK</button>
+        </FooterTemplate>
+    </DxPopup>
+
+    <hr />
+    <h4>Posts</h4>
+
+    @if (Id > 0)
+    {
+        <div class="mb-2">
+            <DxButton RenderStyle="ButtonRenderStyle.Secondary" Text="Add New Post" Enabled="true" IconCssClass="oi oi-plus p-2"
+                      Click="@(e => { navManager.NavigateTo($"blogPostAdd/{Blog.Id}"); })" />
+        </div>
+    }
+
+    <div class="pt-2">
+        @if (BlogPosts.Count() > 0)
+        {
+            @foreach (var item in BlogPosts)
+            {
+                <div><NavLink href="@($"blogPostEdit/{Blog.Id}/{item.Id}")">@item.Title</NavLink></div>
+            }
+        }
+        else
+        {
+            <span>No posts</span>
+        }
+    </div>
+
+    <div class="mt-3">
+        <NavLink href="/admin"><span class="oi oi-arrow-thick-left"></span> Back to Admin</NavLink>
+    </div>
+}

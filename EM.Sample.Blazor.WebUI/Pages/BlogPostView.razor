@@ -1,0 +1,44 @@
+﻿@page "/blogPostView/{id:int}"
+@inherits BlogPostViewBase
+
+@if (BlogPost == null)
+{
+    <p><em>Loading blog post....</em></p>
+}
+else
+{
+    <h1>@BlogPost.Title</h1>
+
+    <h4>
+        @Authors
+    </h4>
+
+    <p class="lead">
+        @BlogPost.Excerpt
+    </p>
+
+    <div class="pt-2">
+        @((MarkupString)BlogPost.PostContent)
+    </div>
+
+    <h3>Tags</h3>
+
+    @if (BlogPost.Tags.Count > 0)
+    {
+        <ul>
+            @foreach (string tag in BlogPost.Tags)
+            {
+                <li>@tag</li>
+            }
+        </ul>
+    }
+    else
+    {
+        <div class="text-warning">No tags</div>
+    }
+
+    <div class="pt-3">
+        <NavLink href="@($"blogView/{BlogPost.BlogId}")">Return to @BlogPost.BlogDisplayName</NavLink>
+    </div>
+}
+

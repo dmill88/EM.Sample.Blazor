@@ -1,0 +1,35 @@
+﻿@page "/admin"
+@inherits BlogAdminBase
+@using EM.Sample.DomainModels.Models
+@inject NavigationManager navManager
+
+<h3><span class="oi oi-cog p-2" title="icon name" aria-hidden="true"></span> Blog Administration </h3>
+
+@if (BlogListItems == null)
+{
+    <div class="text-info">Loading....</div>
+}
+else
+{
+<div class="mb-2">
+    <DxButton RenderStyle="ButtonRenderStyle.Primary" Text="Add" Enabled="true" IconCssClass="oi oi-plus p-2" Click="@(e => { navManager.NavigateTo($"blogEdit/0"); })" />
+</div>
+<div>
+    <DxDataGrid Data="@BlogListItems" ShowGroupPanel="false" ShowFilterRow="false">
+        <DxDataGridColumn Field="@nameof(BlogListItemDto.Id)"></DxDataGridColumn>
+        <DxDataGridColumn Field="@nameof(BlogListItemDto.DisplayName)"></DxDataGridColumn>
+        <DxDataGridColumn Field="@nameof(BlogListItemDto.Name)"></DxDataGridColumn>
+        <DxDataGridColumn>
+            <DisplayTemplate>
+                @{
+                    BlogListItemDto item = context as BlogListItemDto;
+                    <DxButton RenderStyle="ButtonRenderStyle.Primary" Text="View" Enabled="true" IconCssClass="oi oi-document p-2" Click="@(e => { navManager.NavigateTo($"blogView/{item.Id}"); })" style="margin-right: 0.5em;" />
+                    <DxButton RenderStyle="ButtonRenderStyle.Primary" Text="Edit" Enabled="true" IconCssClass="oi oi-pencil p-2" Click="@(e => { navManager.NavigateTo($"blogEdit/{item.Id}"); })" />
+                }
+            </DisplayTemplate>
+        </DxDataGridColumn>
+    </DxDataGrid>
+</div>
+}
+
+
