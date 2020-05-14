@@ -11,11 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EM.Sample.DomainLogic.Tests
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EM.Sample.WebApi", "EM.Sample.WebApi\EM.Sample.WebApi.csproj", "{80C7F8A4-1C69-431E-93B8-17EDD3A08F57}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EM.Sample.Blazor.WebUI", "EM.Sample.Blazor.WebUI\EM.Sample.Blazor.WebUI.csproj", "{0D4112CD-24E6-40F5-8C05-4F597CE2CAA1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EM.Sample.Blazor.WebUI", "EM.Sample.Blazor.WebUI\EM.Sample.Blazor.WebUI.csproj", "{0D4112CD-24E6-40F5-8C05-4F597CE2CAA1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EM.Sample.DomainModels", "EM.Sample.DomainModels\EM.Sample.DomainModels.csproj", "{BB403C7E-11DB-4A2D-AA55-4B4B34D74C69}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EM.Sample.DomainModels", "EM.Sample.DomainModels\EM.Sample.DomainModels.csproj", "{BB403C7E-11DB-4A2D-AA55-4B4B34D74C69}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EM.Data.Helpers", "EM.Data.Helpers\EM.Data.Helpers.csproj", "{4F82B157-D1A8-4F5B-BD35-F2E147759D01}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EM.Data.Helpers", "EM.Data.Helpers\EM.Data.Helpers.csproj", "{4F82B157-D1A8-4F5B-BD35-F2E147759D01}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

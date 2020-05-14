@@ -1,0 +1,21 @@
+{
+  "name": "blazor.webui",
+  "version": "1.0.0",
+  "description": "Sample Blazor Web application",
+  "main": "index.js",
+  "scripts": {
+    "cypress:open": "cypress open"
+  },
+  "keywords": [
+    "cypress",
+    "blazor"
+  ],
+  "author": "David Milligan",
+  "license": "MIT",
+  "devDependencies": {
+    "cypress": "^4.5.0"
+  },
+  "dependencies": {
+    "typescript": "^3.9.2"
+  }
+}

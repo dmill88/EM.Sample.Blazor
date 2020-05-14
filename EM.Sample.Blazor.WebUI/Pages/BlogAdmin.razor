@@ -11,25 +11,34 @@
 }
 else
 {
-<div class="mb-2">
-    <DxButton RenderStyle="ButtonRenderStyle.Primary" Text="Add" Enabled="true" IconCssClass="oi oi-plus p-2" Click="@(e => { navManager.NavigateTo($"blogEdit/0"); })" />
-</div>
-<div>
-    <DxDataGrid Data="@BlogListItems" ShowGroupPanel="false" ShowFilterRow="false">
-        <DxDataGridColumn Field="@nameof(BlogListItemDto.Id)"></DxDataGridColumn>
-        <DxDataGridColumn Field="@nameof(BlogListItemDto.DisplayName)"></DxDataGridColumn>
-        <DxDataGridColumn Field="@nameof(BlogListItemDto.Name)"></DxDataGridColumn>
-        <DxDataGridColumn>
-            <DisplayTemplate>
-                @{
-                    BlogListItemDto item = context as BlogListItemDto;
-                    <DxButton RenderStyle="ButtonRenderStyle.Primary" Text="View" Enabled="true" IconCssClass="oi oi-document p-2" Click="@(e => { navManager.NavigateTo($"blogView/{item.Id}"); })" style="margin-right: 0.5em;" />
-                    <DxButton RenderStyle="ButtonRenderStyle.Primary" Text="Edit" Enabled="true" IconCssClass="oi oi-pencil p-2" Click="@(e => { navManager.NavigateTo($"blogEdit/{item.Id}"); })" />
-                }
-            </DisplayTemplate>
-        </DxDataGridColumn>
-    </DxDataGrid>
-</div>
+    <div class="mb-2" id="divBlogPostAdmin">
+        <div class="row pb-2">
+            <div class="col-1" id="divBlogPostAdminAddLink">
+                <DxButton RenderStyle="ButtonRenderStyle.Primary" Text="Add" Enabled="true" IconCssClass="oi oi-plus p-2" Click="@(e => { navManager.NavigateTo($"blogEdit/0"); })" />
+            </div>
+            <div class="col-11">
+                <DxComboBox NullText="Select status ..." ClearButtonDisplayMode="DataEditorClearButtonDisplayMode.Auto" CssClass="float-left pr-2"
+                            Data="@BlogStatues" TextFieldName="Label" @bind-SelectedItem="@SelectedBlogStatus" Id="ddlBlogStatus" @onchange="@LoadBlogs" />
+                <button @onclick="@LoadBlogs" class="btn btn-primary float-left">Filter</button>
+            </div>
+        </div>
+
+        <DxDataGrid Data="@BlogListItems" ShowGroupPanel="false" ShowFilterRow="false" Id="gridBlogAdminList">
+            <DxDataGridColumn Field="@nameof(BlogListItemDto.Id)"></DxDataGridColumn>
+            <DxDataGridColumn Field="@nameof(BlogListItemDto.DisplayName)"></DxDataGridColumn>
+            <DxDataGridColumn Field="@nameof(BlogListItemDto.Name)"></DxDataGridColumn>
+            <DxDataGridColumn>
+                <DisplayTemplate>
+                    @{
+                        BlogListItemDto item = context as BlogListItemDto;
+                        <DxButton RenderStyle="ButtonRenderStyle.Primary" Text="View" Enabled="true" IconCssClass="oi oi-document p-2" Click="@(e => { navManager.NavigateTo($"blogView/{item.Id}"); })" style="margin-right: 0.5em;" />
+                        <DxButton RenderStyle="ButtonRenderStyle.Primary" Text="Edit" Enabled="true" IconCssClass="oi oi-pencil p-2" Click="@(e => { navManager.NavigateTo($"blogEdit/{item.Id}"); })" />
+                        <DxButton RenderStyle="ButtonRenderStyle.Primary" Text="Delete" Enabled="true" IconCssClass="oi oi-trash p-2" Click="@(e => { navManager.NavigateTo($"blogDelete/{item.Id}"); })" />
+                    }
+                </DisplayTemplate>
+            </DxDataGridColumn>
+        </DxDataGrid>
+    </div>
 }
 
 

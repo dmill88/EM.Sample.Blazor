@@ -59,7 +59,7 @@ else
     }
 
     <h3>Posts</h3>
-    <div>
+    <div id="divBlogPosts">
         @foreach (var item in BlogPosts)
         {
             <div><NavLink href="@($"blogPostView/{item.Id}")">@item.Title</NavLink></div>

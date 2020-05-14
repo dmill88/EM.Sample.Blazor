@@ -1,0 +1,54 @@
+﻿@page "/blogDelete/{id:int}"
+@inherits BlogDeleteBase
+
+<h3>Delete Blog</h3>
+
+@if (Blog == null)
+{
+    <p><em>Loading blog....</em></p>
+}
+else
+{
+    <h1>Delete Blog: @Blog.DisplayName</h1>
+
+    <section class="blog-detail">
+        <div class="col-12 row">
+            <div class="col-xs-12 col-sm-8">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Status</label>
+                    <div class="col-sm-8">
+                        <label type="text" class="form-control-plaintext">@Blog.BlogStatus?.DisplayName</label>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Lookup Name</label>
+                    <div class="col-sm-8">
+                        <label type="text" readonly class="form-control-plaintext">@Blog.Name</label>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Primary Author</label>
+                    <div class="col-sm-8">
+                        <label type="text" readonly class="form-control-plaintext">@Blog.PrimaryAuthor?.DisplayName</label>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Description</label>
+                    <div class="col-sm-8">
+                        <div readonly class="form-control-plaintext">@Blog.Description</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <button type="button" class="btn btn-primary" id="btnDeleteBlog" @onclick="DeleteBlog">Delete Blog</button>
+        </div>
+    </section>
+
+    <div class="mt-3">
+        <NavLink href="/">Return Home</NavLink>
+    </div>
+}

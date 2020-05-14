@@ -21,6 +21,8 @@ namespace EM.Sample.Blazor.WebUI.Pages
 
         public string PageTitle { get; set; } = "Edit Blog";
 
+        public string SubmitButtonText { get; set; } = "Update Blog";
+
         [Parameter]
         public int Id { get; set; }
 
@@ -64,6 +66,7 @@ namespace EM.Sample.Blazor.WebUI.Pages
             {
                 Blog = new BlogDto();
                 PageTitle = $"Add Blog";
+                SubmitButtonText = "Add Blog";
             }
             else
             {

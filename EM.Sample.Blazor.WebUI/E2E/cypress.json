@@ -1,0 +1,6 @@
+{
+  "baseUrl": "https://localhost:44349",
+  "chromeWebSecurity": false,
+  "viewportWidth": 1800,
+  "viewportHeight": 880
+}

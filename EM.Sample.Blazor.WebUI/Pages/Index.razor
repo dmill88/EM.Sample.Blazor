@@ -10,7 +10,7 @@
 }
 else
 {
-    <DxDataGrid Data="@BlogListItems" ShowGroupPanel="false" ShowFilterRow="false">
+    <DxDataGrid Data="@BlogListItems" ShowGroupPanel="false" ShowFilterRow="false" Id="blogListTable">
         <DxDataGridColumn Field="@nameof(BlogListItemDto.Id)"></DxDataGridColumn>
         <DxDataGridColumn Field="@nameof(BlogListItemDto.DisplayName)" Caption="Display Name"></DxDataGridColumn>
         <DxDataGridColumn Field="@nameof(BlogListItemDto.Name)" Caption="Lookup Name"></DxDataGridColumn>

@@ -10,66 +10,69 @@
 }
 else
 {
-    <EditForm Model="@Blog" OnValidSubmit="@HandleValidSubmit" OnInvalidSubmit="@HandleInValidSubmit" Context="EditFormContext">
-        <DataAnnotationsValidator />
-        <DxFormLayout>
-            <DxFormLayoutItem Caption="Author:" ColSpanMd="4">
-                <Template>
-                    <DxComboBox NullText="Select author ..." ClearButtonDisplayMode="DataEditorClearButtonDisplayMode.Auto"
-                                Data="@Authors" TextFieldName="FullName" @bind-SelectedItem="@SelectedAuthor" />
-                </Template>
-            </DxFormLayoutItem>
+    <div id="divBlogForm">
+        <EditForm Model="@Blog" OnValidSubmit="@HandleValidSubmit" OnInvalidSubmit="@HandleInValidSubmit" Context="EditFormContext">
+            <DataAnnotationsValidator />
+            <DxFormLayout>
+                <DxFormLayoutItem Caption="Author:" ColSpanMd="4">
+                    <Template>
+                        <DxComboBox NullText="Select author ..." ClearButtonDisplayMode="DataEditorClearButtonDisplayMode.Auto"
+                                    Data="@Authors" TextFieldName="FullName" @bind-SelectedItem="@SelectedAuthor" Id="ddlBlogAuthor" />
+                    </Template>
+                </DxFormLayoutItem>
 
-            <DxFormLayoutItem Caption="Status:" ColSpanMd="4">
-                <Template>
-                    <DxComboBox NullText="Select status ..." ClearButtonDisplayMode="DataEditorClearButtonDisplayMode.Auto"
-                                Data="@BlogStatues" TextFieldName="Label" @bind-SelectedItem="@SelectedBlogStatus" />
-                </Template>
-            </DxFormLayoutItem>
+                <DxFormLayoutItem Caption="Status:" ColSpanMd="4">
+                    <Template>
+                        <DxComboBox NullText="Select status ..." ClearButtonDisplayMode="DataEditorClearButtonDisplayMode.Auto"
+                                    Data="@BlogStatues" TextFieldName="Label" @bind-SelectedItem="@SelectedBlogStatus" Id="ddlBlogStatus" />
+                    </Template>
+                </DxFormLayoutItem>
 
-            <DxFormLayoutItem Caption="Display Order:" ColSpanMd="4">
-                <Template>
-                    <DxSpinEdit @bind-Value="@Blog.DisplayOrder"></DxSpinEdit>
-                </Template>
-            </DxFormLayoutItem>
+                <DxFormLayoutItem Caption="Display Order:" ColSpanMd="4">
+                    <Template>
+                        <DxSpinEdit @bind-Value="@Blog.DisplayOrder" Id="txtBlogDisplayOrder" MinValue="0" MaxValue="999999999"></DxSpinEdit>
+                    </Template>
+                </DxFormLayoutItem>
 
-            <DxFormLayoutItem Caption="Display Name:" ColSpanMd="6">
-                <Template>
-                    <DxTextBox NullText="Display Name" @bind-Text="@Blog.DisplayName" />
-                </Template>
-            </DxFormLayoutItem>
-            <DxFormLayoutItem Caption="Name (No Spaces):" ColSpanMd="6">
-                <Template>
-                    <DxTextBox NullText="Name without spaces" @bind-Text="@Blog.Name" />
-                </Template>
-            </DxFormLayoutItem>
+                <DxFormLayoutItem Caption="Display Name:" ColSpanMd="6">
+                    <Template>
+                        <DxTextBox NullText="Display Name" @bind-Text="@Blog.DisplayName" Id="txtBlogDisplayName" />
+                    </Template>
+                </DxFormLayoutItem>
+                <DxFormLayoutItem Caption="Name (No Spaces):" ColSpanMd="6">
+                    <Template>
+                        <DxTextBox NullText="Name without spaces" @bind-Text="@Blog.Name" Id="txtBlogLookupName" />
+                    </Template>
+                </DxFormLayoutItem>
 
-            <DxFormLayoutItem Caption="Description:" ColSpanMd="6">
-                <Template>
-                    <InputTextArea @bind-Value="Blog.Description" class="form-control" />
-                </Template>
-            </DxFormLayoutItem>
+                <DxFormLayoutItem Caption="Description:" ColSpanMd="6">
+                    <Template>
+                        <InputTextArea @bind-Value="Blog.Description" class="form-control" Id="txtBlogDescription" />
+                    </Template>
+                </DxFormLayoutItem>
 
-            <DxFormLayoutItem Caption="Tags:" ColSpanMd="6">
-                <Template>
-                    <DxTagBox Data="@AvailableTags" @bind-SelectedItems="@SelectedTags">
-                    </DxTagBox>
-                </Template>
-            </DxFormLayoutItem>
+                <DxFormLayoutItem Caption="Tags:" ColSpanMd="6">
+                    <Template>
+                        <DxTagBox Data="@AvailableTags" @bind-SelectedItems="@SelectedTags" Id="tagsBlogTags">
+                        </DxTagBox>
+                    </Template>
+                </DxFormLayoutItem>
 
-            <DxFormLayoutItem ColSpanMd="12">
-                <Template>
-                    <ValidationSummary />
-                </Template>
-            </DxFormLayoutItem>
-            <DxFormLayoutItem ColSpanMd="12">
-                <Template>
-                    <DxButton SubmitFormOnClick="true" Text="Update Blog" RenderStyle="@ButtonRenderStyle.Primary" />
-                </Template>
-            </DxFormLayoutItem>
+                <DxFormLayoutItem ColSpanMd="12">
+                    <Template>
+                        <ValidationSummary />
+                    </Template>
+                </DxFormLayoutItem>
+                <DxFormLayoutItem ColSpanMd="12">
+                    <Template>
+                        <button type="submit" class="btn btn-primary" id="btnFormSubmit">@SubmitButtonText</button>
+                    </Template>
+                </DxFormLayoutItem>
 
-        </DxFormLayout>
-    </EditForm>
+            </DxFormLayout>
+        </EditForm>
+
+    </div>
 
     <DxPopup @bind-Visible="@ShowSaveResult" HeaderText="Successfully Saved">
         <Content>
@@ -89,11 +92,11 @@ else
     {
         <div class="mb-2">
             <DxButton RenderStyle="ButtonRenderStyle.Secondary" Text="Add New Post" Enabled="true" IconCssClass="oi oi-plus p-2"
-                      Click="@(e => { navManager.NavigateTo($"blogPostAdd/{Blog.Id}"); })" />
+                      Click="@(e => { navManager.NavigateTo($"blogPostAdd/{Blog.Id}"); })" Id="btnAddBlogPost" />
         </div>
     }
 
-    <div class="pt-2">
+    <div class="pt-2" id="divBlogEditLinks">
         @if (BlogPosts.Count() > 0)
         {
             @foreach (var item in BlogPosts)

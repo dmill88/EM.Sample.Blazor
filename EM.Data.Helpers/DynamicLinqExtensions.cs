@@ -30,6 +30,5 @@ namespace EM.Data.Helpers
 
             return entities;
         }
-
     }
 }

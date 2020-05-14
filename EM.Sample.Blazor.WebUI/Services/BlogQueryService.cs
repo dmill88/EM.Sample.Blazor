@@ -54,7 +54,7 @@ namespace EM.Sample.Blazor.WebUI.Services
 
         public async Task<IEnumerable<BlogListItemDto>> GetBlogs(BlogStatuses status = BlogStatuses.Published, int? primaryAuthorId = null)
         {
-            string url = $"BlogQueries/GetBlogs?statusId={(int)status}";
+            string url = $"BlogQueries/GetBlogs?status={(int)status}";
             if (primaryAuthorId.HasValue)
             {
                 url += $"&primaryAuthorId={primaryAuthorId.Value}";
