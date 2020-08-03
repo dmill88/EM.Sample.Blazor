@@ -28,6 +28,11 @@ namespace EM.Sample.WebApi.Controllers
         [AllowAnonymous]
         public IEnumerable<WeatherForecast> Get()
         {
+            int n = 4;
+            if (n == 4)
+            {
+                throw new Exception("Test exception");
+            }
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
